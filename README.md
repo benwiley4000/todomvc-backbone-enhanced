@@ -1,4 +1,4 @@
-# ud989-todo-app
+# todomvc-backbone-enhanced
 UD989 todo app repo. -- implemented prioritization feature, edit button, and 'done!' label
 
 This work builds off of a Backbone.js implementation of the TodoMVC project (http://todomvc.com/).
