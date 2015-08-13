@@ -21,7 +21,8 @@ var app = app || {};
 		events: {
 			'keypress #new-todo': 'createOnEnter',
 			'click #clear-completed': 'clearCompleted',
-			'click #toggle-all': 'toggleAllComplete'
+			'click #toggle-all': 'toggleAllComplete',
+			'click #new-priority': 'toggleNewPriority'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -29,15 +30,20 @@ var app = app || {};
 		// loading any preexisting todos that might be saved in *localStorage*.
 		initialize: function () {
 			this.allCheckbox = this.$('#toggle-all')[0];
+			this.$container = this.$('#new-todo-container');
 			this.$input = this.$('#new-todo');
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 			this.$list = $('#todo-list');
 
+			// Initializes new todo as low-priority.
+			this.priority = false;
+
 			this.listenTo(app.todos, 'add', this.addOne);
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
+			this.listenTo(app.todos, 'all', this.toggleNewPriority);
 			this.listenTo(app.todos, 'all', this.render);
 
 			// Suppresses 'add' events with {reset: true} and prevents the app view
@@ -51,6 +57,9 @@ var app = app || {};
 		render: function () {
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
+
+			// Toggles priority highlighting based on this.priority.
+			this.$container.toggleClass('priority', this.priority);
 
 			if (app.todos.length) {
 				this.$main.show();
@@ -99,7 +108,8 @@ var app = app || {};
 			return {
 				title: this.$input.val().trim(),
 				order: app.todos.nextOrder(),
-				completed: false
+				completed: false,
+				priority: this.priority
 			};
 		},
 
@@ -126,6 +136,12 @@ var app = app || {};
 					completed: completed
 				});
 			});
+		},
+
+		// Toggle the `"priority"` state of the new todo.
+		toggleNewPriority: function () {
+			this.priority = !this.priority;
+			this.render();
 		}
 	});
 })(jQuery);

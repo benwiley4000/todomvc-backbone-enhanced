@@ -135,6 +135,10 @@ input[type="checkbox"] {
 	font-smoothing: antialiased;
 }
 
+#new-todo-container {
+	position: relative;
+}
+
 #new-todo {
 	padding: 16px 16px 16px 60px;
 	border: none;
@@ -223,7 +227,8 @@ label[for='toggle-all'] {
 	appearance: none;
 }
 
-#todo-list li .priority-btn {
+#todo-list li .priority-btn,
+#new-todo-container .priority-btn {
 	display: none;
 	height: auto;
 	position: absolute;
@@ -242,11 +247,19 @@ label[for='toggle-all'] {
 	appearance: none;
 }
 
-#todo-list li:hover .priority-btn {
+#new-todo-container .priority-btn {
+	font-size: 24px;
+	background-color: #f8f8f8;
+	margin-top: 1px;
+}
+
+#todo-list li:hover .priority-btn,
+#new-todo-container:hover .priority-btn {
 	display: block;
 }
 
-#todo-list li .priority-btn:after {
+#todo-list li .priority-btn:after,
+#new-todo-container .priority-btn:after {
 	content: '!';
 }
 
@@ -282,11 +295,13 @@ label[for='toggle-all'] {
 	text-decoration: line-through;
 }
 
-#todo-list li.priority:not(.completed) label {
+#todo-list li.priority:not(.completed) label,
+#new-todo-container.priority {
 	color: #d66;
 }
 
-#todo-list li.priority .priority-btn:after {
+#todo-list li.priority .priority-btn:after,
+#new-todo-container.priority .priority-btn:after {
 	color: #d66;
 }
 
