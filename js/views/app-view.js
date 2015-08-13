@@ -43,7 +43,7 @@ var app = app || {};
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
-			this.listenTo(app.todos, 'all', this.toggleNewPriority);
+			this.listenTo(app.todos, 'all', this.disableNewPriority);
 			this.listenTo(app.todos, 'all', this.render);
 
 			// Suppresses 'add' events with {reset: true} and prevents the app view
@@ -142,6 +142,11 @@ var app = app || {};
 		toggleNewPriority: function () {
 			this.priority = !this.priority;
 			this.render();
+		},
+
+		// Turns off the `"priority"` state of the new todo. 
+		disableNewPriority: function () {
+			this.priority = false;
 		}
 	});
 })(jQuery);
