@@ -296,6 +296,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li.priority:not(.completed) label,
+#todo-list li.priority:not(.completed) .edit,
 #new-todo-container.priority {
 	color: #d66;
 }
